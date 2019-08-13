@@ -1,0 +1,4 @@
+backend/node_modules
+share-music/node_modules
+share-music/.sass-cache
+share-music/dist

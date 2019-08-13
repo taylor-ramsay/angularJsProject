@@ -1,0 +1,54 @@
+<div ng-controller="ShareCtrl">
+    <form>
+        <fieldset>
+            <label for="youtubeLink">YouTube Link</label>
+            <input id="youtubeLink" ng-change="loadYouTubeVideoFromLink(sharedLink)"
+                placeholder="Paste YouTube link here." ng-model="sharedLink" />
+            <label for="selectedGenre">Genre</label>
+            <select id="selectedGenre" ng-model="selectedGenre">
+                <option ng-repeat="genre in genres" ng-selected="{{ genre.name === selectedGenre }}"
+                    value="{{genre.name}}">
+                    {{genre.name}}
+                </option>
+            </select>
+        </fieldset>
+        <button ng-click="postVideo(iFrameUrl, videoTitle, selectedGenre)" ng-show="iFrameUrl"
+            class="btn btn-primary">Post</button>
+    </form>
+    <p>{{videoTitle}}</p>
+    <iframe id="player" type="text/html" width="640" height="390" ng-show="iFrameUrl" ng-src={{iFrameUrl}}
+        frameborder="0"></iframe>
+
+    <div class="flex justify-content-between">
+        <div ng-show="sortByHighestRated">
+            <label for="sortByBest">Sorted By</label>
+            <a id="sortByBest" ng-click="toggleSortBy()">Best</a>
+        </div>
+        <div ng-hide="sortByHighestRated">
+            <label for="sortByWorst">Sorted By</label>
+            <a id="sortByWorst" ng-click="toggleSortBy()">Worst</a>
+        </div>
+
+        <div>
+            <label for="filterBy">Filter by Category</label>
+            <select id="selectedGenre" ng-model="selectedGenreFilter">
+                <option ng-repeat="genre in filterGenres" ng-selected="{{ genre.name === selectedGenre }}"
+                    value="{{genre.name}}">
+                    {{genre.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <ul ng-repeat="video in videos | orderBy: orderByValue | filter: filterGenresFunction(selectedGenreFilter)">
+        <li>
+            <span>{{ video.voteCount }}</span>
+            <a ng-click="upVote(video)" class="glyphicon glyphicon-menu-up"></a>
+            <a ng-click="downVote(video)" class="glyphicon glyphicon-menu-down"></a>
+            <h3>{{ video.title }}</h3>
+            <iframe id="player" type="text/html" width="640" height="390" ng-src={{video.iFrameUrl}}
+                frameborder="0"></iframe>
+            <span class="label label-primary">{{ video.genre }}</span>
+        </li>
+    </ul>
+</div>
