@@ -8791,4 +8791,14 @@ body {
   justify-content: space-between;
 }
 
+/* line 101, ../../app/styles/main.scss */
+.form-control.ng-invalid.ng-dirty {
+  background-color: pink;
+}
+
+/* line 105, ../../app/styles/main.scss */
+.error-text {
+  color: red;
+}
+
 /*# sourceMappingURL=main.css.map */

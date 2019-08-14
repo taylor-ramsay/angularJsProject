@@ -97,3 +97,11 @@ body {
 .justify-content-between {
   justify-content: space-between;
 }
+
+.form-control.ng-invalid.ng-dirty {
+  background-color: pink;
+}
+
+.error-text {
+  color: red;
+}

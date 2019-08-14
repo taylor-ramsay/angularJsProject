@@ -1,37 +1,47 @@
 <div ng-controller="ShareCtrl">
-    <form>
+    <form name="shareForm">
+        <p>Share your favorite song</p>
+        <h2>{{videoTitle}}</h2>
+        <iframe id="player" type="text/html" width="100%" height="390" ng-show="iFrameUrl" ng-src={{iFrameUrl}}
+            frameborder="0"></iframe>
         <fieldset>
-            <label for="youtubeLink">YouTube Link</label>
-            <input id="youtubeLink" ng-change="loadYouTubeVideoFromLink(sharedLink)"
-                placeholder="Paste YouTube link here." ng-model="sharedLink" />
-            <label for="selectedGenre">Genre</label>
-            <select id="selectedGenre" ng-model="selectedGenre">
-                <option ng-repeat="genre in genres" ng-selected="{{ genre.name === selectedGenre }}"
-                    value="{{genre.name}}">
-                    {{genre.name}}
-                </option>
-            </select>
+            <div class="form-group">
+                <label for="youtubeLink">YouTube Link</label>
+                <input name="linkField" ng-pattern="/^(http(s)??\:\/\/)?(www\.)?((youtube\.com\/watch\?v=)|(youtu.be\/))([a-zA-Z0-9\-_])+/" class="form-control" id="youtubeLink" ng-change="loadYouTubeVideoFromLink(sharedLink, shareForm)"
+                    placeholder="Paste YouTube link here." ng-model="sharedLink" />
+                    <span class="error-text" ng-show="shareForm.linkField.$error.pattern || videoDoesNotExist">Please enter a valid YouTube link</span>
+            </div>
+            <div class="form-group">
+                <label for="selectedGenre">Genre</label>
+                <select name="selectGenreField" required class="form-control" id="selectedGenre" ng-model="selectedGenre">
+                    <option ng-repeat="genre in genres" ng-selected="{{ genre.name === selectedGenre }}"
+                        value="{{genre.name}}">
+                        {{genre.name}}
+                    </option>
+                </select>
+                <span class="error-text" ng-show="shareForm.selectGenreField.$invalid && showFormErrors">Please select a genre</span>
+            </div>
         </fieldset>
-        <button ng-click="postVideo(iFrameUrl, videoTitle, selectedGenre)" ng-show="iFrameUrl"
+        <button ng-click="postVideo(iFrameUrl, videoTitle, selectedGenre, shareForm)" ng-show="iFrameUrl"
             class="btn btn-primary">Post</button>
     </form>
-    <p>{{videoTitle}}</p>
-    <iframe id="player" type="text/html" width="640" height="390" ng-show="iFrameUrl" ng-src={{iFrameUrl}}
-        frameborder="0"></iframe>
+
+    <hr />
+    <br />
 
     <div class="flex justify-content-between">
         <div ng-show="sortByHighestRated">
             <label for="sortByBest">Sorted By</label>
-            <a id="sortByBest" ng-click="toggleSortBy()">Best</a>
+            <a id="sortByBest" ng-click="toggleSortBy()" href="#">Best</a>
         </div>
         <div ng-hide="sortByHighestRated">
             <label for="sortByWorst">Sorted By</label>
-            <a id="sortByWorst" ng-click="toggleSortBy()">Worst</a>
+            <a id="sortByWorst" ng-click="toggleSortBy()" href="#">Worst</a>
         </div>
 
         <div>
             <label for="filterBy">Filter by Category</label>
-            <select id="selectedGenre" ng-model="selectedGenreFilter">
+            <select class="form-control" id="selectedGenre" ng-model="selectedGenreFilter">
                 <option ng-repeat="genre in filterGenres" ng-selected="{{ genre.name === selectedGenre }}"
                     value="{{genre.name}}">
                     {{genre.name}}

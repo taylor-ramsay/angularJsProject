@@ -20,11 +20,6 @@ var shareMusicApp = angular
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
-      .when('/share', {
         templateUrl: 'views/share.html',
         controller: 'ShareCtrl',
         controllerAs: 'share'
@@ -42,7 +37,7 @@ var shareMusicApp = angular
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
       'https://www.googleapis.com/youtube/**',
-      'http://localhost:5000/**',
+
       'https://www.youtube.com/**'
     ]);
   });
