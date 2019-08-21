@@ -1,0 +1,20 @@
+<div class="flex justify-content-between">
+    <div ng-show="orderByValue === '-voteCount'">
+        <label for="sortByBest">Sorted By</label>
+        <a id="sortByBest" ng-click="toggleSortBy()" href="#">Best</a>
+    </div>
+    <div ng-hide="orderByValue === '-voteCount'">
+        <label for="sortByWorst">Sorted By</label>
+        <a id="sortByWorst" ng-click="toggleSortBy()" href="#">Worst</a>
+    </div>
+
+    <div>
+        <label for="filterBy">Filter by Category</label>
+        <select class="form-control" id="selectedGenre" ng-model="selectedGenre">
+            <option ng-repeat="genre in genres" ng-selected="{{ genre.name === selectedGenre }}"
+                value="{{genre.name}}">
+                {{genre.name}}
+            </option>
+        </select>
+    </div>
+</div>

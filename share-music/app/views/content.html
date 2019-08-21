@@ -1,0 +1,11 @@
+<ul ng-repeat="video in videos | orderBy: orderByValue | filter: filterByGenre()">
+    <li>
+        <span>{{ video.voteCount }}</span>
+        <a ng-click="upVote(video)" class="glyphicon glyphicon-menu-up"></a>
+        <a ng-click="downVote(video)" class="glyphicon glyphicon-menu-down"></a>
+        <h3>{{ video.title }}</h3>
+        <iframe id="player" type="text/html" width="640" height="390" ng-src={{video.iFrameUrl}}
+            frameborder="0"></iframe>
+        <span class="label label-primary">{{ video.genre }}</span>
+    </li>
+</ul>

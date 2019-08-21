@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-var shareMusicApp = angular
+angular
   .module('shareMusicApp', [
     'ngAnimate',
     'ngCookies',
@@ -21,8 +21,6 @@ var shareMusicApp = angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/share.html',
-        controller: 'ShareCtrl',
-        controllerAs: 'share'
       })
       .otherwise({
         redirectTo: '/'
